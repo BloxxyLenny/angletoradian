@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+
+<html lang="pl">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="title" content="Angle to Radians Calculator">
+	<meta name="description" content="Calculates angles to radians, with ability to adjust the output value">
+	<meta name="keywords" content="Angles, Angle, Radian, Radians, Calc, Calculator">
+	<meta name="robots" content="index, follow">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="language" content="English">
+	<meta name="author" content="BloxxyLenny">
+
+	<title>Angle to Radians</title>
+	
+	<link rel="stylesheet" href="">
+	
+	<!-- skrypt zapewniający zgodność ze starszymi wersjami przeglądarki IE -->
+	<script>
+		document.createElement('header');
+		document.createElement('nav');
+		document.createElement('article');
+		document.createElement('footer');
+		document.createElement('section');
+	</script>
+
+	<style>
+		* {
+			font-family: Arial, Helvetica, sans-serif;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div style="display: block; margin: auto;">
+		<h1> Online angle to radians converter </h1>
+		<div><i>Lowest, Max, Default: -3600.0, 3600.0, 0.0 (for angle)<br>Lowest, Max, Default: 0, 10, 2 (for numbers of zeros after the decimal point)</i></div>
+		<br>
+		<input id="angleinput" type="number" placeholder="360.0" style="border: 2px solid #000; font-family: 'Courier New', Courier, monospace;">
+		<input id="zerotoround" type="number" placeholder="DEC point accuracy" style="border: 2px solid #000; font-family: 'Courier New', Courier, monospace;">
+		<button onclick="calc()" style="border: 2px solid #000; background-color: #000; color: #fff; font-family: 'Courier New', Courier, monospace;">Convert</button>
+		<div><br>Output: <span id="outputNumber" style="font-family: 'Courier New', Courier, monospace; font-weight: 800;">0.0</span> radian(s)</div>
+		<hr>
+
+		<img src="loading_cube.gif" alt="just sum cub spinning. nuthin of importance">
+
+		<footer style="display: block; position: absolute; bottom: 7px; width: 99%; background-color: #fff;"><hr>Copyright© <span id="currentYear">x</span> by BloxxyLenny</footer>
+	</div>
+
+	<script>
+		const currentDate = new Date().getFullYear()
+		document.getElementById('currentYear').innerText = currentDate
+
+		function limitNum(n, min, max)
+		{
+			var limitedVal = Math.max(min, Math.min(n, max));
+
+			return limitedVal
+		}
+
+		function calc() {
+			var inputedAngle = limitNum(parseFloat(document.getElementById('angleinput').value), -3600, 3600);
+			var inputedAccuracy = limitNum(parseInt(document.getElementById('zerotoround').value), 0, 10);
+
+			if (isNaN(inputedAngle)) {inputedAngle = 0};
+			if (isNaN(inputedAccuracy)) {inputedAccuracy = 2};
+
+			document.getElementById('angleinput').value = inputedAngle;
+			document.getElementById('zerotoround').value = inputedAccuracy;
+
+			var endAccuracyProduct = '1';
+
+			for(var i = 0; i < inputedAccuracy; i++)
+			{
+				endAccuracyProduct += '0';
+			}
+
+			endAccuracyProduct = parseInt(endAccuracyProduct);
+
+			document.getElementById('outputNumber').innerHTML = Math.round((inputedAngle * (Math.PI / 180)) * endAccuracyProduct) / endAccuracyProduct;
+		}
+	</script>
+
+	<noscript>
+		<div style="z-index: 10; width: 100%; height: 100%; background-color: #fff; display: block;">
+			<h1 style="font-family: 'Courier New', Courier, monospace">
+				This browser either does not support JavaScript or has JavaScript disabled.
+				Please switch to a different browser or consider re-enabling JavaScript support, hence aborting.
+			</h1>
+		</div>
+	</noscript>
+</body>
+
+</html>
